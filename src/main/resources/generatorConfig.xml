@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--可以参考如下链接 https://www.imooc.com/article/21444-->
+<generatorConfiguration>
+    <!--配置连接数据库所用的驱动-->
+    <classPathEntry location="D:\E\workspace\mall_dependency\mysql-connector-java-5.1.6.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!--在pom 文件里面配置插件后，mapper.xml重新生成后的内容不会被覆盖，会被追加
+            所以加入该配置可以使得内容不被追加
+        -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <!--使得生成的文件没有大量的注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.0.105:3306/mall?characterEncoding=utf-8"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!--java类型处理器，用于处理DB中的类型到Java中的类型-->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--对于po-->
+        <javaModelGenerator targetPackage="org.wmy.mall.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--<property name="trimStrings" value="true" />-->
+        </javaModelGenerator>
+
+        <!--对于mapper-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--对于dao-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.wmy.mall.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--domainObjectName 使得生成的文件不会带上工程名
+            使用enable***ByExample使得生成的代码，没有example
+        -->
+        <!--<table tableName="mall_order" domainObjectName="Order" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="mall_order_item" domainObjectName="OrderItem" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="mall_user" domainObjectName="User" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+
+       <!-- <table tableName="mall_category" domainObjectName="Category" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+
+        <!--<table tableName="mall_product" domainObjectName="Product" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
+            &lt;!&ndash;在数据库中以下字段的类型是text，如果不进行如下设置的话，会多生成一个包含如下字段实体类&ndash;&gt;
+            <columnOverride column="detail" jdbcType="VARCHAR"/>
+            <columnOverride column="sub_images" jdbcType="VARCHAR"/>
+        </table>-->
+
+         <table tableName="mall_shipping" domainObjectName="Shipping" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+
+    </context>
+</generatorConfiguration>
+
+<!--使用该命令自动生成代码 mvn mybatis-generator:generate-->

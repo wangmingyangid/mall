@@ -1,0 +1,27 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.0.105:3306/mall?characterEncoding=utf-8&useSSL=false
+  redis:
+    host: 192.168.0.105
+    port: 6379
+  rabbitmq:
+      addresses: 192.168.0.105
+      port: 5672
+      username: guest
+      password: guest
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    #控制台日志配置
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+
+# 默认最小是1分钟，所以该设置时无效的
+server:
+  servlet:
+    session:
+      timeout: 10s
